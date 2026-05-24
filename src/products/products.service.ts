@@ -9,6 +9,7 @@ import { ProductQueryDto } from "./dto/product-query.dto";
 @Injectable()
 export class ProductsService {
   private readonly allowedSortFields = ["name", "price", "createdAt"];
+  private readonly CACHE_TTL = 60_000;
 
   constructor(
     @InjectRepository(Product)
@@ -75,7 +76,7 @@ export class ProductsService {
       },
     };
 
-    await this.cacheManager.set(cacheKey, result, 60_000);
+    await this.cacheManager.set(cacheKey, result, this.CACHE_TTL);
 
     return result;
   }
