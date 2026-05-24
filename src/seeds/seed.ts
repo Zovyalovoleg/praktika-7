@@ -16,17 +16,15 @@ async function seed() {
   });
 
   await dataSource.initialize();
-  console.log("Database connected");
 
   const categoryRepo = dataSource.getRepository(Category);
   const productRepo = dataSource.getRepository(Product);
 
-  const categories = await categoryRepo.save([
+  await categoryRepo.save([
     { name: "Electronics", description: "Electronic devices and gadgets" },
     { name: "Accessories", description: "Phone and laptop accessories" },
     { name: "Clothing", description: "Apparel and fashion items" },
   ]);
-  console.log(`Created ${categories.length} categories`);
 
   const productsData = [
     { name: "iPhone 15 Pro", price: 1199, categoryId: 1 },
@@ -61,14 +59,11 @@ async function seed() {
     { name: "Sports Shorts", price: 34, categoryId: 3 },
   ];
 
-  const products = await productRepo.save(productsData);
-  console.log(`Created ${products.length} products`);
+  await productRepo.save(productsData);
 
   await dataSource.destroy();
-  console.log("Seed completed successfully");
 }
 
 seed().catch((err) => {
-  console.error("Seed failed:", err);
   process.exit(1);
 });

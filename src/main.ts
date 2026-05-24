@@ -16,7 +16,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle("Shop API")
-    .setDescription("Products API with pagination, filtering, and Redis caching")
+    .setDescription("Products API")
     .setVersion("1.0")
     .build();
 
@@ -24,7 +24,5 @@ async function bootstrap() {
   SwaggerModule.setup("api/docs", app, document);
 
   await app.listen(3000);
-  console.log("Application is running on http://localhost:3000");
-  console.log("Swagger UI: http://localhost:3000/api/docs");
 }
 bootstrap();
